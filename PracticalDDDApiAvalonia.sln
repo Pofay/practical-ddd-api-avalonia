@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Logic", "SnackMachine.Logic\SnackMachine.Logic.csproj", "{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Tests", "SnackMachine.Tests\SnackMachine.Tests.csproj", "{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
