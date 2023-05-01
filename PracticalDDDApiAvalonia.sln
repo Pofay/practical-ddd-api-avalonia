@@ -3,17 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Logic", "SnackMachine.Logic\SnackMachine.Logic.csproj", "{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.Logic", "SnackMachine.Logic\SnackMachine.Logic.csproj", "{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.Tests", "SnackMachine.Tests\SnackMachine.Tests.csproj", "{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.Tests", "SnackMachine.Tests\SnackMachine.Tests.csproj", "{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.UI", "SnackMachine.UI\SnackMachine.UI.csproj", "{7A147C0B-D888-4926-AF3B-A2B7E20336DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0A5F2B98-5662-45FF-8EF9-703F5AF0EBA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,5 +23,15 @@ Global
 		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A147C0B-D888-4926-AF3B-A2B7E20336DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A147C0B-D888-4926-AF3B-A2B7E20336DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A147C0B-D888-4926-AF3B-A2B7E20336DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A147C0B-D888-4926-AF3B-A2B7E20336DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B644B7C6-EF5F-4D56-BB67-C05FB3481ED2}
 	EndGlobalSection
 EndGlobal
