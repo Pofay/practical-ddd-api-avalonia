@@ -1,4 +1,4 @@
-using Xunit;
+﻿using Xunit;
 using SnackMachine.Logic;
 using FluentAssertions;
 
@@ -61,6 +61,19 @@ namespace SnackMachine.Tests
 
             sut.MoneyInside.Amount.Should().Be(2m);
             sut.MoneyInTransaction.Amount.Should().Be(0m);
+        }
+
+        [Fact]
+        public void ShouldNotEmptyMoneyInsideWhenBuyingASnackAndReturningMoney()
+        {
+            var sut = new SnackMachineEntity();
+            sut.InsertMoney(Money.Dollar);
+            sut.InsertMoney(Money.Dollar);
+
+            sut.BuySnack();
+            sut.ReturnMoney();
+
+            sut.MoneyInside.Amount.Should().Be(2m);
         }
     }
 }
