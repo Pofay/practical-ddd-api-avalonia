@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,5 +66,13 @@ namespace SnackMachine.Logic
             return sum;
         }
 
+        public override string ToString()
+        {
+            if(Amount < 1)
+            {
+                return "¢" + (Amount * 100).ToString("0");
+            }
+            return "$" + Amount.ToString("0.00");
+        }
     }
 }

@@ -1,4 +1,4 @@
-namespace SnackMachine.Tests;
+﻿namespace SnackMachine.Tests;
 
 using Xunit;
 using SnackMachine.Logic;
@@ -115,4 +115,22 @@ public class MoneyTest
         action.Should().Throw<InvalidOperationException>();
     }
 
+    [Theory]
+    [InlineData(1, 0, 0, 0, 0, 0, "¢1")]
+    [InlineData(0, 0, 0, 1, 0, 0, "$1.00")]
+    [InlineData(1, 0, 0, 1, 0, 0, "$1.01")]
+    [InlineData(0, 0, 2, 1, 0, 0, "$1.50")]
+    public void ShouldReturnProperToStringRepresentation(
+        int oneCentCount,
+        int tenCentCount,
+        int quarterCount,
+        int oneDollarCount,
+        int fiveDollarCount,
+        int twentyDollarCount,
+        string expectedString)
+    {
+        var money = new Money(oneCentCount, tenCentCount, quarterCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
+        var actual = money.ToString();
+        actual.Should().Be(expectedString);
+    }
 }
