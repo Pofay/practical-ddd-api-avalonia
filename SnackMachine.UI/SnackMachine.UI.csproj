@@ -11,6 +11,7 @@
     <Folder Include="Commons\" />
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Assets\Images\**" />
     <None Remove=".gitignore" />
   </ItemGroup>
 
