@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="SnackMachine.UI.Views.SnackMachineWindow"
         Icon="/Assets/Images/Icon.png"
-        Title="SnackMachine.UI">
+        Title="{Binding Caption}">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
