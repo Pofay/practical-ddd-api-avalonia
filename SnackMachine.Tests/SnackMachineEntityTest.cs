@@ -11,7 +11,7 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldNotContainAnyMoneyInsideOrMoneyInTransactionOnCreation()
         {
-            var sut = new SnackMachineEntity();
+            var sut = new SnackMachineEntity(Guid.NewGuid());
 
             sut.MoneyInside.Should().Be(Money.None);
             sut.MoneyInTransaction.Should().Be(Money.None);
@@ -20,7 +20,7 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldEmptyMoneyInTransactionWhenInvokingReturnMoney()
         {
-            var sut = new SnackMachineEntity();
+            var sut = new SnackMachineEntity(Guid.NewGuid());
             sut.InsertMoney(Money.Dollar);
 
             sut.ReturnMoney();
@@ -31,7 +31,7 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldInsertMoneyToMoneyInTransaction()
         {
-            var sut = new SnackMachineEntity();
+            var sut = new SnackMachineEntity(Guid.NewGuid());
 
             sut.InsertMoney(Money.Cent);
             sut.InsertMoney(Money.Dollar);
@@ -42,7 +42,7 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldNotBeAbleToInsertMoreThanOneCoinOrNoteAtATime()
         {
-            var sut = new SnackMachineEntity();
+            var sut = new SnackMachineEntity(Guid.NewGuid());
             var twoCent = Money.Cent + Money.Cent;
 
             var action = () => sut.InsertMoney(twoCent);
@@ -53,7 +53,7 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldPutMoneyInTranstionToMoneyInsideOnBuySnack()
         {
-            var sut = new SnackMachineEntity();
+            var sut = new SnackMachineEntity(Guid.NewGuid());
             sut.InsertMoney(Money.Dollar);
             sut.InsertMoney(Money.Dollar);
 
@@ -66,7 +66,7 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldNotEmptyMoneyInsideWhenBuyingASnackAndReturningMoney()
         {
-            var sut = new SnackMachineEntity();
+            var sut = new SnackMachineEntity(Guid.NewGuid());
             sut.InsertMoney(Money.Dollar);
             sut.InsertMoney(Money.Dollar);
 
@@ -74,6 +74,25 @@ namespace SnackMachine.Tests
             sut.ReturnMoney();
 
             sut.MoneyInside.Amount.Should().Be(2m);
+        }
+
+        [Fact]
+        public void SanityCheckForEquality()
+        {
+            // Default
+            var sut = new SnackMachineEntity(Guid.NewGuid());
+            var sut2 = new SnackMachineEntity(Guid.NewGuid());
+            sut.Should().NotBe(sut2);
+
+            // Same Id
+            var id = Guid.NewGuid();
+            sut = new SnackMachineEntity(id);
+            sut2 = new SnackMachineEntity(id);
+            sut.Should().Be(sut2);
+
+            // Reference Equality
+            sut = sut2;
+            sut.Should().Be(sut2);
         }
     }
 }

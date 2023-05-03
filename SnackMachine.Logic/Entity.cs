@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ namespace SnackMachine.Logic
 {
     public abstract class Entity
     {
-        public long Id { get; private set; }
+        public Guid Id { get; protected set; }
 
         public override bool Equals(object? obj)
         {
@@ -21,15 +21,10 @@ namespace SnackMachine.Logic
 
             if (ReferenceEquals(this, other))
             {
-                return false;
+                return true;
             }
 
             if (GetType() != other.GetType())
-            {
-                return false;
-            }
-
-            if (Id == 0 || other.Id == 0)
             {
                 return false;
             }
@@ -46,7 +41,7 @@ namespace SnackMachine.Logic
 
             if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
             {
-                return true;
+                return false;
             }
 
             return a.Equals(b);

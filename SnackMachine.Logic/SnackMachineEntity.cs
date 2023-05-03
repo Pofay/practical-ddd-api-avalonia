@@ -6,6 +6,11 @@ public sealed class SnackMachineEntity : Entity
     public Money MoneyInside { get; private set; } = Money.None;
     public Money MoneyInTransaction { get; private set; } = Money.None;
 
+    public SnackMachineEntity(Guid id)
+    {
+        this.Id = id;
+    }
+
     public void InsertMoney(Money money)
     {
         if (!ACCEPTABLE_COINS_AND_NOTES.Contains(money))
