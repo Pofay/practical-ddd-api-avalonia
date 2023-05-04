@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
@@ -14,6 +15,7 @@ namespace SnackMachine.UI
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            DotNetEnv.Env.TraversePath().Load();
         }
 
         public override void OnFrameworkInitializationCompleted()
@@ -25,7 +27,7 @@ namespace SnackMachine.UI
                 ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
                 desktop.MainWindow = new SnackMachineWindow
                 {
-                    DataContext = new SnackMachineViewModel(new SnackMachineEntity()),
+                    DataContext = new SnackMachineViewModel(new SnackMachineEntity(Guid.NewGuid())),
                 };
             }
 
