@@ -1,10 +1,12 @@
 ﻿namespace SnackMachine.Logic;
 
-public sealed class SnackMachineEntity : Entity
+public class SnackMachineEntity : Entity
 {
     private static readonly Money[] ACCEPTABLE_COINS_AND_NOTES = { Money.Cent, Money.TenCent, Money.Quarter, Money.Dollar, Money.FiveDollar, Money.TwentyDollar };
     public Money MoneyInside { get; private set; } = Money.None;
     public Money MoneyInTransaction { get; private set; } = Money.None;
+
+    private SnackMachineEntity() { }
 
     public SnackMachineEntity(Guid id)
     {
