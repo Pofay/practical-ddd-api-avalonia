@@ -12,7 +12,7 @@ namespace SnackMachine.Tests
     public class EntityFrameworkSanityTests
     {
 
-        [Fact]
+        [Fact(Skip = "Only run this if you need Entity Framework specific logic to work.")]
         public async void ShouldReturnSavedSnackMachine()
         {
             var id = Guid.NewGuid();
