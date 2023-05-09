@@ -49,8 +49,8 @@ namespace SnackMachine.UI.ViewModels
 
         private void BuySnack()
         {
-            _snackMachine.BuySnack();
-            NotifyClient("You bought a snack");
+            /*_snackMachine.BuySnack();
+*/            NotifyClient("You bought a snack");
 
         }
 
