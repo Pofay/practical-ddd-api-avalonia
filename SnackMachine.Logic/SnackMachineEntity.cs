@@ -25,7 +25,9 @@ public class SnackMachineEntity : AggregateRoot
     public void InsertMoney(Money money)
     {
         if (!ACCEPTABLE_COINS_AND_NOTES.Contains(money))
+        {
             throw new InvalidOperationException();
+        }
 
         MoneyInTransaction += money;
     }
@@ -38,6 +40,11 @@ public class SnackMachineEntity : AggregateRoot
     public void BuySnack(int position)
     {
         var slot = GetSlot(position);
+
+        if (slot.SnackPile.Price > MoneyInTransaction.Amount)
+        {
+            throw new InvalidOperationException();
+        }
         slot.SnackPile = slot.SnackPile.SubtractOne();
         MoneyInside += MoneyInTransaction;
         MoneyInTransaction = Money.None;

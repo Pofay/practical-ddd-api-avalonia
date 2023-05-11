@@ -97,5 +97,30 @@ namespace SnackMachine.Tests
             sut = sut2;
             sut.Should().Be(sut2);
         }
+
+        [Fact]
+        public void ShouldNotBeAbleToPurchaseWhenThereIsNoSnackLoaded()
+        {
+            var id = Guid.NewGuid();
+            var snackMachine = new SnackMachineEntity(id);
+
+            var action = () => snackMachine.BuySnack(1);
+
+            action.Should().Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToPurchaseWhenThereIsNotEnoughMoneyInserted()
+        {
+            var id = Guid.NewGuid();
+            var snackMachine = new SnackMachineEntity(id);
+            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snack"), 10, 2m));
+            snackMachine.InsertMoney(Money.Dollar);
+
+            
+            var action = () => snackMachine.BuySnack(1);
+
+            action.Should().Throw<InvalidOperationException>();
+        }   
     }
 }
