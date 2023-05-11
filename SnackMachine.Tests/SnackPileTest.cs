@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 using SnackMachine.Logic;
 using Xunit;
 
@@ -13,19 +14,25 @@ namespace SnackMachine.Tests
         [Fact]
         public void ShouldThrowExceptionWhenCreatingWithQuantityLessThan0()
         {
-            Assert.Throws<InvalidOperationException>(() => { new SnackPile(null, -1, 1m); });
+            var action = new Action(() => { new SnackPile(null, -1, 1m); });
+
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCreatingWithPriceLessThan0()
         {
-            Assert.Throws<InvalidOperationException>(() => { new SnackPile(null, 1, -1); });
+            var action = new Action(() => { new SnackPile(null, 1, -1m); });
+
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCreatingWithAPriceMorePreciseThanOneCent()
         {
-            Assert.Throws<InvalidOperationException>(() => { new SnackPile(null, 1, 0.001m); });
+            var action = new Action(() => { new SnackPile(null, 1, 0.001m); });
+
+            action.Should().ThrowExactly<InvalidOperationException>();
         }
     }
 }
