@@ -1,6 +1,6 @@
 ﻿namespace SnackMachine.Logic;
 
-public class SnackMachineEntity : Entity
+public class SnackMachineEntity : AggregateRoot
 {
     private static readonly Money[] ACCEPTABLE_COINS_AND_NOTES = { Money.Cent, Money.TenCent, Money.Quarter, Money.Dollar, Money.FiveDollar, Money.TwentyDollar };
     public Money MoneyInside { get; private set; }

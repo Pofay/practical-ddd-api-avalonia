@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SnackMachine.Logic
 {
-    public class Snack : Entity
+    public class Snack : AggregateRoot
     {
         public string Name { get; private set; }
         private Snack() { }
