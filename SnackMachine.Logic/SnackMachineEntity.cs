@@ -5,7 +5,7 @@ public class SnackMachineEntity : AggregateRoot
     private static readonly Money[] ACCEPTABLE_COINS_AND_NOTES = { Money.Cent, Money.TenCent, Money.Quarter, Money.Dollar, Money.FiveDollar, Money.TwentyDollar };
     public Money MoneyInside { get; private set; }
     public Money MoneyInTransaction { get; private set; }
-    public IList<Slot> Slots { get; private set; }
+    protected IList<Slot> Slots { get; set; }
 
     private SnackMachineEntity() { }
 
@@ -16,9 +16,9 @@ public class SnackMachineEntity : AggregateRoot
         this.MoneyInTransaction = Money.None;
         this.Slots = new List<Slot>
         {
-            new Slot(this, 1, null, 0, 0m),
-            new Slot(this, 2, null, 0, 0m),
-            new Slot(this, 3, null, 0, 0m),
+            new Slot(this, 1),
+            new Slot(this, 2),
+            new Slot(this, 3)
         };
     }
 
@@ -37,17 +37,25 @@ public class SnackMachineEntity : AggregateRoot
 
     public void BuySnack(int position)
     {
-        var slot = Slots.Single(x => x.Position == position);
-        slot.Quantity--;
+        var slot = GetSlot(position);
+        slot.SnackPile = slot.SnackPile.SubtractOne();
         MoneyInside += MoneyInTransaction;
         MoneyInTransaction = Money.None;
     }
 
-    public void LoadSnacks(int position, Snack snack, int quantity, decimal price)
+    public void LoadSnacks(int position, SnackPile snackPile)
     {
-        var slot = Slots.Single(x => x.Position == position);
-        slot.Snack = snack;
-        slot.Quantity = quantity;
-        slot.Price = price;
+        var slot = GetSlot(position);
+        slot.SnackPile = snackPile;
+    }
+
+    private Slot GetSlot(int position)
+    {
+        return Slots.Single(x => x.Position == position);
+    }
+
+    public SnackPile GetSnackPile(int position)
+    {
+        return GetSlot(position).SnackPile;
     }
 }
