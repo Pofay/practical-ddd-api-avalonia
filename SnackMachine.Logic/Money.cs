@@ -15,6 +15,13 @@ namespace SnackMachine.Logic
         public static readonly Money FiveDollar = new Money(0, 0, 0, 0, 1, 0);
         public static readonly Money TwentyDollar = new Money(0, 0, 0, 0, 0, 1);
 
+        public const decimal ONE_CENT_AMOUNT = 0.01m;
+        public const decimal QUARTER_CENT_AMOUNT = 0.25m;
+        public const decimal TEN_CENT_AMOUNT = 0.10m;
+        public const decimal ONE_DOLLAR_AMOUNT = 1;
+        public const decimal FIVE_DOLLAR_AMOUNT = 5;
+        public const decimal TWENTY_DOLLAR_AMOUNT = 20;
+
         public int OneCentCount { get; private set; }
         public int QuarterCount { get; private set; }
         public int OneDollarCount { get; private set; }
@@ -99,22 +106,22 @@ namespace SnackMachine.Logic
 
         public Money Allocate(decimal amount)
         {
-            int twentyDollarCount = Math.Min((int)(amount / 20), TwentyDollarCount);
-            amount = amount - twentyDollarCount * 20;
+            int twentyDollarCount = GetNoteOrCoinCount(amount, TWENTY_DOLLAR_AMOUNT, TwentyDollarCount);
+            amount = amount - (twentyDollarCount * 20);
 
-            int fiveDollarCount = Math.Min((int)(amount / 5), FiveDollarCount);
-            amount = amount - fiveDollarCount * 5;
+            int fiveDollarCount = GetNoteOrCoinCount(amount, FIVE_DOLLAR_AMOUNT, FiveDollarCount);
+            amount = amount - (fiveDollarCount * 5);
 
-            int oneDollarCount = Math.Min((int)(amount / 1), OneDollarCount);
+            int oneDollarCount = GetNoteOrCoinCount(amount, ONE_DOLLAR_AMOUNT, OneDollarCount);
             amount = amount - oneDollarCount;
 
-            int quarterCount = Math.Min((int)(amount / 0.25m), QuarterCount);
-            amount = amount - quarterCount * 0.25m;
+            int quarterCount = GetNoteOrCoinCount(amount, QUARTER_CENT_AMOUNT, QuarterCount);
+            amount = amount - (quarterCount * 0.25m);
 
-            int tenCentCount = Math.Min((int)(amount / 0.10m), TenCentCount);
-            amount = amount - tenCentCount * 0.10m;
+            int tenCentCount = GetNoteOrCoinCount(amount, TEN_CENT_AMOUNT, TenCentCount);
+            amount = amount - (tenCentCount * 0.10m);
 
-            int oneCentCount = Math.Min((int)(amount / 0.01m), OneCentCount);
+            int oneCentCount = GetNoteOrCoinCount(amount, ONE_CENT_AMOUNT, OneDollarCount);
 
             return new Money(
                 oneCentCount,
@@ -123,6 +130,12 @@ namespace SnackMachine.Logic
                 oneDollarCount,
                 fiveDollarCount,
                 twentyDollarCount);
+        }
+
+        private int GetNoteOrCoinCount(decimal amount, decimal rawMoneyAmount, int noteOrCoinCount)
+        {
+            int noteOrCoinCountFromAmount = (int)(amount / rawMoneyAmount);
+            return Math.Min(noteOrCoinCountFromAmount, noteOrCoinCount);
         }
     }
 }

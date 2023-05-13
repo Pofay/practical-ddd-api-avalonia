@@ -64,16 +64,15 @@ namespace SnackMachine.Tests
             sut.GetSnackPile(1).Quantity.Should().Be(9);
         }
 
-        [Fact(Skip = "Working on Buy Snack change")]
-
+        [Fact]
         public void ShouldNotEmptyMoneyInsideWhenBuyingASnackAndReturningMoney()
         {
             var sut = new SnackMachineEntity(Guid.NewGuid());
+            sut.LoadSnacks(1, new SnackPile(new Snack("Snack"), 10, 2m));
             sut.InsertMoney(Money.Dollar);
             sut.InsertMoney(Money.Dollar);
 
-            /*sut.BuySnack();
-*/
+            sut.BuySnack(1);
             sut.ReturnMoney();
 
             sut.MoneyInside.Amount.Should().Be(2m);
