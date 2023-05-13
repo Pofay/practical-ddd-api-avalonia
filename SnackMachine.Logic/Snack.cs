@@ -9,10 +9,12 @@ namespace SnackMachine.Logic
     public class Snack : AggregateRoot
     {
         public string Name { get; private set; }
+
         private Snack() { }
 
-        public Snack(string name) : this()
+        public Snack(Guid id, string name) : this()
         {
+            Id = Id;
             Name = name;
         }
     }

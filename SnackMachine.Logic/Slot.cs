@@ -16,6 +16,7 @@ namespace SnackMachine.Logic
 
         public Slot(SnackMachineEntity snackMachine, int position)
         {
+            Id = Guid.NewGuid();
             SnackMachine = snackMachine;
             Position = position;
             SnackPile = new SnackPile(null, 0, 0m);
@@ -23,6 +24,7 @@ namespace SnackMachine.Logic
 
         public Slot(SnackMachineEntity snackMachine, int position, SnackPile snackPile) : this()
         {
+            Id = Guid.NewGuid();
             SnackMachine = snackMachine;
             Position = position;
             SnackPile = snackPile;

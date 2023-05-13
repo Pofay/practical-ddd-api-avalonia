@@ -54,7 +54,7 @@ namespace SnackMachine.Tests
         public void ShouldTradeInsertedMoneyForSnack()
         {
             var sut = new SnackMachineEntity(Guid.NewGuid());
-            sut.LoadSnacks(1, new SnackPile(new Snack("Snack"), 10, 1m));
+            sut.LoadSnacks(1, new SnackPile(new Snack(Guid.NewGuid(), "Snack"), 10, 1m));
             sut.InsertMoney(Money.Dollar);
 
             sut.BuySnack(1);
@@ -68,7 +68,7 @@ namespace SnackMachine.Tests
         public void ShouldNotEmptyMoneyInsideWhenBuyingASnackAndReturningMoney()
         {
             var sut = new SnackMachineEntity(Guid.NewGuid());
-            sut.LoadSnacks(1, new SnackPile(new Snack("Snack"), 10, 2m));
+            sut.LoadSnacks(1, new SnackPile(new Snack(Guid.NewGuid(), "Snack"), 10, 2m));
             sut.InsertMoney(Money.Dollar);
             sut.InsertMoney(Money.Dollar);
 
@@ -113,7 +113,7 @@ namespace SnackMachine.Tests
         {
             var id = Guid.NewGuid();
             var snackMachine = new SnackMachineEntity(id);
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snack"), 10, 2m));
+            snackMachine.LoadSnacks(1, new SnackPile(new Snack(Guid.NewGuid(), "Snack"), 10, 2m));
             snackMachine.InsertMoney(Money.Dollar);
 
 
@@ -143,7 +143,7 @@ namespace SnackMachine.Tests
         public void ShouldReturnChangeAfterPurchase()
         {
             var snackMachine = new SnackMachineEntity(Guid.NewGuid());
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Some Snack"), 1, 0.5m));
+            snackMachine.LoadSnacks(1, new SnackPile(new Snack(Guid.NewGuid(), "Some Snack"), 1, 0.5m));
             snackMachine.LoadMoney(Money.TenCent * 10);
 
             snackMachine.InsertMoney(Money.Dollar);
@@ -157,7 +157,7 @@ namespace SnackMachine.Tests
         public void ShouldNotBeAbleToBuySnackWhenThereIsNoChange()
         {
             var snackMachine = new SnackMachineEntity(Guid.NewGuid());
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Some Snack"), 1, 0.5m));
+            snackMachine.LoadSnacks(1, new SnackPile(new Snack(Guid.NewGuid(), "Some Snack"), 1, 0.5m));
             snackMachine.InsertMoney(Money.Dollar);
 
             var action = () => snackMachine.BuySnack(1);
