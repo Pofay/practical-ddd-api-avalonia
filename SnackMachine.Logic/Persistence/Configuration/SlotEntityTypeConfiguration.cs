@@ -13,6 +13,8 @@ namespace SnackMachine.Logic.Persistence.Configuration
         public void Configure(EntityTypeBuilder<Slot> builder)
         {
             // To Implement
+            // Need to Add a Id to the Slot's current constructor
+            // Before implementing this.
         }
     }
 }
