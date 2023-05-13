@@ -18,8 +18,8 @@ namespace SnackMachine.Logic.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.ApplyConfiguration(new SnackMachineEntityTypeConfiguration());
+            var persistenceAssembly = typeof(SnackMachineEntityTypeConfiguration).Assembly;
+            modelBuilder.ApplyConfigurationsFromAssembly(persistenceAssembly);
         }
     }
 
