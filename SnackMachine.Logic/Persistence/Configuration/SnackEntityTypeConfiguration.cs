@@ -12,9 +12,9 @@ namespace SnackMachine.Logic.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Snack> builder)
         {
-            // To Implement
-            // Need to Add a Id to the Snack's current constructor
-            // Before implementing this.
+            builder.ToTable(nameof(Snack));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Name);
         }
     }
 }

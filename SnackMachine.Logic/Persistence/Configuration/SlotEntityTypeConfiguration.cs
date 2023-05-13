@@ -12,9 +12,16 @@ namespace SnackMachine.Logic.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Slot> builder)
         {
-            // To Implement
-            // Need to Add a Id to the Slot's current constructor
-            // Before implementing this.
+            builder.ToTable(nameof(Slot));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Position);
+            builder.HasOne(x => x.SnackMachine);
+            builder.OwnsOne(x => x.SnackPile, navigationBuilder =>
+            {
+                navigationBuilder.Property(x => x.Quantity);
+                navigationBuilder.Property(x => x.Price);
+                navigationBuilder.HasOne(x => x.Snack);
+            });
         }
     }
 }

@@ -26,6 +26,11 @@ namespace SnackMachine.Logic.Persistence.Configuration
                     navigationBuilder.Property(m => m.TwentyDollarCount).HasColumnName("TwentyDollarCount").IsRequired();
                 });
             builder.Ignore(s => s.MoneyInTransaction);
+
+            builder.HasMany(s => s.Slots)
+                .WithOne()
+                .HasForeignKey("SnackMachineEntityId")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
