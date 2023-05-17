@@ -21,7 +21,7 @@ namespace SnackMachine.Logic
         {
             using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
             {
-                return GetByIdCore(id);
+                return GetByIdCore(context, id);
             }
         }
 
@@ -37,7 +37,7 @@ namespace SnackMachine.Logic
             }
         }
 
-        protected abstract T GetByIdCore(Guid id);
+        protected abstract T GetByIdCore(DataContext context, Guid id);
         protected abstract void SaveCore(DataContext context, T aggregateRoot);
     }
 }

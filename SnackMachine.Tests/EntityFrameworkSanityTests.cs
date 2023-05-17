@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using SnackMachine.Logic;
 using SnackMachine.Logic.Persistence;
+using FluentAssertions;
 
 namespace SnackMachine.Tests
 {
@@ -30,6 +31,20 @@ namespace SnackMachine.Tests
                 context.SnackMachines.Remove(actual);
                 await context.SaveChangesAsync();
             }
+        }
+
+        [Fact]
+        public async void SanityTestForEntityFrameworkAggregateRoot()
+        {
+            System.Environment.SetEnvironmentVariable("DATABASE_URL", "Server=localhost; Port=5432; User Id=postgres; Password=postgres; Database=practical_ddd_db; CommandTimeout=20;");
+            var id = Guid.NewGuid();
+            var expected = new SnackMachineEntity(id);
+
+            var repository = new SnackMachineRepository(new DataContextFactory());
+            repository.Save(expected);
+
+            var actual = repository.GetById(id);
+            actual.Should().NotBeNull();
         }
     }
 }

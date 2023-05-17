@@ -8,7 +8,7 @@ namespace SnackMachine.Logic
 {
     public record SnackPile
     {
-        public Snack Snack { get; }
+        public Snack? Snack { get; }
         public int Quantity { get; }
         public decimal Price { get; }
 

@@ -15,12 +15,11 @@ namespace SnackMachine.Logic.Persistence.Configuration
             builder.ToTable(nameof(Slot));
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Position);
-            builder.HasOne(x => x.SnackMachine);
             builder.OwnsOne(x => x.SnackPile, navigationBuilder =>
             {
                 navigationBuilder.Property(x => x.Quantity);
                 navigationBuilder.Property(x => x.Price);
-                navigationBuilder.HasOne(x => x.Snack);
+                navigationBuilder.HasOne(x => x.Snack).WithOne();
             });
         }
     }
