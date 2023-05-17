@@ -12,7 +12,7 @@ using SnackMachine.Logic.Persistence;
 namespace SnackMachine.Logic.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230517080852_TweakSlotAndSnackRelationship")]
+    [Migration("20230517080503_TweakSlotAndSnackRelationship")]
     partial class TweakSlotAndSnackRelationship
     {
         /// <inheritdoc />
