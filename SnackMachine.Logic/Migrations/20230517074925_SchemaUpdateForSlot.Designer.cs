@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SnackMachine.Logic.Persistence;
@@ -11,9 +12,11 @@ using SnackMachine.Logic.Persistence;
 namespace SnackMachine.Logic.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230517074925_SchemaUpdateForSlot")]
+    partial class SchemaUpdateForSlot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,8 +104,7 @@ namespace SnackMachine.Logic.Migrations
 
                             b1.HasKey("SlotId");
 
-                            b1.HasIndex("SnackId")
-                                .IsUnique();
+                            b1.HasIndex("SnackId");
 
                             b1.ToTable("Slot");
 
@@ -110,8 +112,8 @@ namespace SnackMachine.Logic.Migrations
                                 .HasForeignKey("SlotId");
 
                             b1.HasOne("SnackMachine.Logic.Snack", "Snack")
-                                .WithOne()
-                                .HasForeignKey("SnackMachine.Logic.Slot.SnackPile#SnackMachine.Logic.SnackPile", "SnackId");
+                                .WithMany()
+                                .HasForeignKey("SnackId");
 
                             b1.Navigation("Snack");
                         });
