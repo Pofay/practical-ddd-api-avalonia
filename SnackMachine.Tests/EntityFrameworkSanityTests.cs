@@ -48,6 +48,7 @@ namespace SnackMachine.Tests
 
             var actual = repository.GetById(id);
             actual.GetSnackPile(1).Quantity.Should().Be(0);
+            actual.GetSnackPile(1).Snack.Name.Should().Be("Chocolate Bar");
 
             repository.Delete(actual);
         }

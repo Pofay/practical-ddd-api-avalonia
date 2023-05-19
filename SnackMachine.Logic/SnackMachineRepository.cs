@@ -16,7 +16,11 @@ namespace SnackMachine.Logic
 
         protected override SnackMachineEntity GetByIdCore(DataContext context, Guid id)
         {
-            return context.SnackMachines.Include(s => s.Slots).FirstOrDefault(x => x.Id == id);
+            return context
+                .SnackMachines
+                .Include(s => s.Slots)
+                .ThenInclude(s => s.SnackPile.Snack)
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }
