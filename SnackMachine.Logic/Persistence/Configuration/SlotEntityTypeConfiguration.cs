@@ -21,6 +21,6 @@ namespace SnackMachine.Logic.Persistence.Configuration
                 navigationBuilder.Property(x => x.Price);
                 navigationBuilder.HasOne(x => x.Snack).WithOne();
             });
-        }
+       }
     }
 }

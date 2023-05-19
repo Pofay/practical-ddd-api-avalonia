@@ -17,7 +17,7 @@ namespace SnackMachine.Logic
             this.ContextFactory = dataContextFactory;
         }
 
-        public T GetById(Guid id)
+        public virtual T GetById(Guid id)
         {
             using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
             {
@@ -25,19 +25,41 @@ namespace SnackMachine.Logic
             }
         }
 
-        public void Save(T aggregateRoot)
+
+        public virtual void Save(T aggregateRoot)
         {
             using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
             {
                 using (var transaction = context.Database.BeginTransaction())
                 {
-                    SaveCore(context, aggregateRoot);
+                    var aggregateRootFromDb = context.Set<T>().FirstOrDefault(x => x.Id == aggregateRoot.Id);
+                    if (aggregateRootFromDb != null)
+                    {
+                        context.Set<T>().Update(aggregateRoot);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        context.Set<T>().Add(aggregateRoot);
+                        context.SaveChanges();
+                    }
                     transaction.Commit();
                 }
             }
         }
 
+        public virtual void Delete(T aggregateRoot)
+        {
+            using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    context.Set<T>().Remove(aggregateRoot);
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+            }
+        }
         protected abstract T GetByIdCore(DataContext context, Guid id);
-        protected abstract void SaveCore(DataContext context, T aggregateRoot);
     }
 }

@@ -29,7 +29,6 @@ namespace SnackMachine.Logic.Persistence.Configuration
 
             builder.HasMany(s => s.Slots)
                 .WithOne()
-                .HasForeignKey("SnackMachineEntityId")
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
