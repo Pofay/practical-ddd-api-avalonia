@@ -7,7 +7,6 @@ public class SnackMachineEntity : AggregateRoot
     public decimal MoneyInTransaction { get; private set; }
     internal IList<Slot> Slots { get; set; }
     
-
     private SnackMachineEntity() { }
 
     public SnackMachineEntity(Guid id)

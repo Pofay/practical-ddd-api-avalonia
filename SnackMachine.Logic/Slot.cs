@@ -12,19 +12,20 @@ namespace SnackMachine.Logic
         public SnackMachineEntity SnackMachine { get; private set; }
         public int Position { get; private set; }
 
-        private Slot() { }
-
-        public Slot(SnackMachineEntity snackMachine, int position)
+        private Slot(Guid id)
         {
-            Id = Guid.NewGuid();
+            this.Id = id;
+        }
+
+        public Slot(SnackMachineEntity snackMachine, int position) : this(Guid.NewGuid())
+        {
             SnackMachine = snackMachine;
             Position = position;
             SnackPile = new SnackPile(null, 0, 0m);
         }
 
-        public Slot(SnackMachineEntity snackMachine, int position, SnackPile snackPile) : this()
+        public Slot(SnackMachineEntity snackMachine, int position, SnackPile snackPile) : this(Guid.NewGuid())
         {
-            Id = Guid.NewGuid();
             SnackMachine = snackMachine;
             Position = position;
             SnackPile = snackPile;

@@ -8,13 +8,19 @@ namespace SnackMachine.Logic
 {
     public class Snack : AggregateRoot
     {
+        public static readonly Snack Chocolate = new Snack(Guid.Parse("08b96bd6-29db-4089-8e0e-7feb9fab8666"), "Chocolate");
+        public static readonly Snack Soda = new Snack(Guid.Parse("99454277-68ae-44be-9648-25da7644bb02"), "Soda");
+        public static readonly Snack Gum = new Snack(Guid.Parse("e7b52ab8-1552-4187-bdc8-15e63ac3502a"), "Gum");
+
         public string Name { get; private set; }
 
-        private Snack() { }
-
-        public Snack(Guid id, string name) : this()
+        private Snack(Guid id)
         {
-            Id = Id;
+            this.Id = id;
+        }
+
+        private Snack(Guid id, string name) : this(id)
+        {
             Name = name;
         }
     }
