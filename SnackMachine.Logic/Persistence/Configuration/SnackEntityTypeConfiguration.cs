@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace SnackMachine.Logic.Persistence.Configuration
         public void Configure(EntityTypeBuilder<Snack> builder)
         {
             builder.ToTable(nameof(Snack));
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id).HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.None);
             builder.Property(x => x.Name);
         }
     }
