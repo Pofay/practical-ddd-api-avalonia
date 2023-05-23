@@ -20,6 +20,7 @@ namespace SnackMachine.Tests
             var id = Guid.NewGuid();
             var sut = new SnackMachineEntity(id);
             var repository = new SnackMachineRepository(new DataContextFactory());
+            var pile = SnackPile.Empty;
 
             repository.Save(sut);
 

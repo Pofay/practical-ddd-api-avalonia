@@ -21,7 +21,7 @@ namespace SnackMachine.Logic
         {
             SnackMachine = snackMachine;
             Position = position;
-            SnackPile = new SnackPile(null, 0, 0m);
+            SnackPile = SnackPile.Empty;
         }
 
         public Slot(SnackMachineEntity snackMachine, int position, SnackPile snackPile) : this(Guid.NewGuid())
