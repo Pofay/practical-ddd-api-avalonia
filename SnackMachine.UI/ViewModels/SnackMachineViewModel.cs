@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using SnackMachine.Logic;
@@ -13,6 +15,16 @@ namespace SnackMachine.UI.ViewModels
         public string Caption => "Snack Machine";
         public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
         public Money MoneyInside => _snackMachine.MoneyInside;
+
+        public IReadOnlyList<SnackPileViewModel> Piles
+        {
+            get
+            {
+                return _snackMachine.GetAllSnackPiles()
+                       .Select(x => new SnackPileViewModel(x))
+                       .ToList();
+            }
+        }
 
         public string Message
         {
@@ -50,7 +62,8 @@ namespace SnackMachine.UI.ViewModels
         private void BuySnack()
         {
             /*_snackMachine.BuySnack();
-*/            NotifyClient("You bought a snack");
+*/
+            NotifyClient("You bought a snack");
 
         }
 

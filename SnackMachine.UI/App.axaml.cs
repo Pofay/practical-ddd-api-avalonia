@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Shapes;
 using Avalonia.Data.Core;
@@ -16,6 +17,7 @@ namespace SnackMachine.UI
     {
         public override void Initialize()
         {
+            var dataGridType = typeof(DataGrid); // HACK
             AvaloniaXamlLoader.Load(this);
             DotNetEnv.Env.TraversePath().Load();
         }
@@ -28,19 +30,20 @@ namespace SnackMachine.UI
                 // Without this line you will get duplicate validations from both Avalonia and CT
                 ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
 
+                var snackMachineId = Guid.Parse("09213a9c-ff65-4b01-b7da-ac7a792b119e");
+                var repository = new SnackMachineRepository(new DataContextFactory());
                 SnackMachineEntity snackMachine;
-                using (var dbContext = new DataContextFactory().CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
+                var existingSnackMachine = repository.GetById(snackMachineId);
+                if (existingSnackMachine == null)
                 {
-                    var snackMachineId = Guid.Parse("09213a9c-ff65-4b01-b7da-ac7a792b119e");
-                    var existingSnackMachine = dbContext.SnackMachines.Find(snackMachineId);
-                    if (existingSnackMachine == null)
-                    {
-                        existingSnackMachine = new SnackMachineEntity(snackMachineId);
-                        dbContext.SnackMachines.Add(existingSnackMachine);
-                        dbContext.SaveChanges();
-                    }
-                    snackMachine = existingSnackMachine;
+                    existingSnackMachine = new SnackMachineEntity(snackMachineId);
+                    repository.Save(existingSnackMachine);
                 }
+                snackMachine = existingSnackMachine;
+                snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 3m));
+                snackMachine.LoadSnacks(2, new SnackPile(Snack.Soda, 15, 2m));
+                snackMachine.LoadSnacks(3, new SnackPile(Snack.Gum, 20, 1m));
+
                 desktop.MainWindow = new SnackMachineWindow
                 {
                     DataContext = new SnackMachineViewModel(snackMachine)
