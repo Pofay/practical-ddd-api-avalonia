@@ -36,17 +36,21 @@ namespace SnackMachine.Logic
                     if (aggregateRootFromDb != null)
                     {
                         context.Set<T>().Update(aggregateRoot);
+                        SaveCore(context);
                         context.SaveChanges();
                     }
                     else
                     {
                         context.Set<T>().Add(aggregateRoot);
+                        SaveCore(context);
                         context.SaveChanges();
                     }
                     transaction.Commit();
                 }
             }
         }
+
+        protected abstract void SaveCore(DataContext context);
 
         public virtual void Delete(T aggregateRoot)
         {
