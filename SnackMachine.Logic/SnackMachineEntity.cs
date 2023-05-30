@@ -6,7 +6,7 @@ public class SnackMachineEntity : AggregateRoot
     public Money MoneyInside { get; private set; }
     public decimal MoneyInTransaction { get; private set; }
     internal IList<Slot> Slots { get; set; }
-    
+
     private SnackMachineEntity() { }
 
     public SnackMachineEntity(Guid id)
@@ -78,5 +78,10 @@ public class SnackMachineEntity : AggregateRoot
     public SnackPile GetSnackPile(int position)
     {
         return GetSlot(position).SnackPile;
+    }
+
+    public IReadOnlyList<SnackPile> GetAllSnackPiles()
+    {
+        return Slots.OrderBy(x => x.Position).Select(x => x.SnackPile).ToList();
     }
 }
