@@ -19,7 +19,7 @@ namespace SnackMachine.Logic.Persistence.Configuration
             {
                 navigationBuilder.Property(x => x.Quantity).HasDefaultValue(0);
                 navigationBuilder.Property(x => x.Price).HasDefaultValue(0);
-                navigationBuilder.HasOne(x => x.Snack).WithOne();
+                navigationBuilder.HasOne(x => x.Snack).WithMany();
             });
         }
     }
