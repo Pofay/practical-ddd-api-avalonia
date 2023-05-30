@@ -37,13 +37,12 @@ namespace SnackMachine.UI
                 if (existingSnackMachine == null)
                 {
                     existingSnackMachine = new SnackMachineEntity(snackMachineId);
+                    existingSnackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 3m));
+                    existingSnackMachine.LoadSnacks(2, new SnackPile(Snack.Soda, 15, 2m));
+                    existingSnackMachine.LoadSnacks(3, new SnackPile(Snack.Gum, 20, 1m));
                     repository.Save(existingSnackMachine);
                 }
                 snackMachine = existingSnackMachine;
-                snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 3m));
-                snackMachine.LoadSnacks(2, new SnackPile(Snack.Soda, 15, 2m));
-                snackMachine.LoadSnacks(3, new SnackPile(Snack.Gum, 20, 1m));
-
                 desktop.MainWindow = new SnackMachineWindow
                 {
                     DataContext = new SnackMachineViewModel(snackMachine)
