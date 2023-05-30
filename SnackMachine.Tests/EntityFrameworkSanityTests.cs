@@ -20,13 +20,32 @@ namespace SnackMachine.Tests
             var id = Guid.NewGuid();
             var sut = new SnackMachineEntity(id);
             var repository = new SnackMachineRepository(new DataContextFactory());
-            var pile = SnackPile.Empty;
 
             repository.Save(sut);
 
             var actual = repository.GetById(id);
             actual.Should().NotBeNull();
             actual.Should().BeEquivalentTo(sut);
+
+            repository.Delete(actual);
+        }
+
+        [Fact(Skip = "Known Bug, Default Snackmachine should start with 3 SnackPiles all pointing to Empty. Yet only one snackpile points to it in the database.")]
+        public async void DefaultSnackMachineShouldHaveEmptySnackPiles()
+        {
+            System.Environment.SetEnvironmentVariable("DATABASE_URL", "Server=localhost; Port=5432; User Id=postgres; Password=postgres; Database=practical_ddd_db; CommandTimeout=20;");
+            var id = Guid.NewGuid();
+            var sut = new SnackMachineEntity(id);
+            var repository = new SnackMachineRepository(new DataContextFactory());
+
+            repository.Save(sut);
+
+            var actual = repository.GetById(id);
+            // Empty SnackPiles are just referencing SnackPile.Empty
+            
+            actual.GetSnackPile(1).Snack.Should().NotBeNull();
+            actual.GetSnackPile(2).Snack.Should().NotBeNull();
+            actual.GetSnackPile(3).Snack.Should().NotBeNull();
 
             repository.Delete(actual);
         }
