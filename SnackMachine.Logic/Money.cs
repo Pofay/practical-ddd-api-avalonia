@@ -104,7 +104,7 @@ namespace SnackMachine.Logic
             return "$" + Amount.ToString("0.00");
         }
 
-        public Money Allocate(decimal amount)
+        public Money AllocateCore(decimal amount)
         {
             int twentyDollarCount = GetNoteOrCoinCount(amount, TWENTY_DOLLAR_AMOUNT, TwentyDollarCount);
             amount = amount - (twentyDollarCount * 20);
@@ -136,6 +136,21 @@ namespace SnackMachine.Logic
         {
             int noteOrCoinCountFromAmount = (int)(amount / rawMoneyAmount);
             return Math.Min(noteOrCoinCountFromAmount, noteOrCoinCount);
+        }
+
+        public bool CanAllocate(decimal amount)
+        {
+            var money = AllocateCore(amount);
+            return money.Amount == amount;
+        }
+
+        public Money Allocate(decimal amount)
+        {
+            if (!CanAllocate(amount))
+            {
+                throw new InvalidOperationException();
+            }
+            return AllocateCore(amount);
         }
     }
 }
