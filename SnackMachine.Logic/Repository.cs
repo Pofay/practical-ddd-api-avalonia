@@ -36,6 +36,7 @@ namespace SnackMachine.Logic
                     var aggregateRootFromDb = context.Set<T>().FirstOrDefault(x => x.Id == aggregateRoot.Id);
                     if (aggregateRootFromDb != null)
                     {
+                        // From https://stackoverflow.com/questions/36856073/the-instance-of-entity-type-cannot-be-tracked-because-another-instance-of-this-t
                         context.Entry(aggregateRootFromDb).State = EntityState.Detached;
                         context.Set<T>().Update(aggregateRoot);
                         SaveCore(context);
