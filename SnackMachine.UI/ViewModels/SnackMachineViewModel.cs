@@ -10,7 +10,7 @@ namespace SnackMachine.UI.ViewModels
     public class SnackMachineViewModel : ViewModelBase
     {
         private SnackMachineEntity _snackMachine;
-
+        private SnackMachineRepository _repository;
         private string _message = "";
         public string Caption => "Snack Machine";
         public string MoneyInTransaction => _snackMachine.MoneyInTransaction.ToString();
@@ -45,9 +45,10 @@ namespace SnackMachine.UI.ViewModels
         public ICommand ReturnMoneyCommand { get; private set; }
         public ICommand BuySnackCommand { get; private set; }
 
-        public SnackMachineViewModel(SnackMachineEntity snackMachine)
+        public SnackMachineViewModel(SnackMachineEntity snackMachine, SnackMachineRepository repository)
         {
             _snackMachine = snackMachine;
+            _repository = repository;
 
             InsertCentCommand = new RelayCommand(() => InsertMoney(Money.Cent));
             InsertTenCentCommand = new RelayCommand(() => InsertMoney(Money.TenCent));
@@ -56,15 +57,22 @@ namespace SnackMachine.UI.ViewModels
             InsertFiveDollarCommand = new RelayCommand(() => InsertMoney(Money.FiveDollar));
             InsertTwentyDollarCommand = new RelayCommand(() => InsertMoney(Money.TwentyDollar));
             ReturnMoneyCommand = new RelayCommand(() => ReturnMoney());
-            BuySnackCommand = new RelayCommand(() => BuySnack());
+            BuySnackCommand = new RelayCommand<string>(BuySnack);
         }
 
-        private void BuySnack()
+        private void BuySnack(string snackPilePosition)
         {
-            /*_snackMachine.BuySnack();
-*/
-            NotifyClient("You bought a snack");
+            int position = int.Parse(snackPilePosition);
 
+            var error = _snackMachine.CanBuySnack(position);
+            if (error != string.Empty)
+            {
+                NotifyClient(error);
+                return;
+            }
+            _snackMachine.BuySnack(position);
+            _repository.Save(_snackMachine);
+            NotifyClient("You bought a snack");
         }
 
         private void ReturnMoney()
@@ -81,9 +89,10 @@ namespace SnackMachine.UI.ViewModels
 
         private void NotifyClient(string message)
         {
+            Message = message;
             OnPropertyChanged(nameof(MoneyInTransaction));
             OnPropertyChanged(nameof(MoneyInside));
-            Message = message;
+            OnPropertyChanged(nameof(Piles));
         }
     }
 }
