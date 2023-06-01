@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using SnackMachine.Logic.Persistence;
 
@@ -35,6 +36,7 @@ namespace SnackMachine.Logic
                     var aggregateRootFromDb = context.Set<T>().FirstOrDefault(x => x.Id == aggregateRoot.Id);
                     if (aggregateRootFromDb != null)
                     {
+                        context.Entry(aggregateRootFromDb).State = EntityState.Detached;
                         context.Set<T>().Update(aggregateRoot);
                         SaveCore(context);
                         context.SaveChanges();
