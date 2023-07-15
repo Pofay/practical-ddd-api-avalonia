@@ -10,8 +10,58 @@ namespace SnackMachine.Logic
 {
     public class SnackMachineRepository : Repository<SnackMachineEntity>
     {
-        public SnackMachineRepository(DbContextFactory dataContextFactory) : base(dataContextFactory)
+        private DbContextFactory ContextFactory { get; }
+
+        public SnackMachineRepository(DbContextFactory dataContextFactory) 
         {
+            this.ContextFactory= dataContextFactory;
+        }
+
+        public override SnackMachineEntity GetById(Guid id)
+        {
+            using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
+            {
+                return GetByIdCore(context, id);
+            }
+        }
+
+        public override void Save(SnackMachineEntity aggregateRoot)
+        {
+            using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    var aggregateRootFromDb = context.Set<SnackMachineEntity>().FirstOrDefault(x => x.Id == aggregateRoot.Id);
+                    if (aggregateRootFromDb != null)
+                    {
+                        // From https://stackoverflow.com/questions/36856073/the-instance-of-entity-type-cannot-be-tracked-because-another-instance-of-this-t
+                        context.Entry(aggregateRootFromDb).State = EntityState.Detached;
+                        context.Set<SnackMachineEntity>().Update(aggregateRoot);
+                        SaveCore(context);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        context.Set<SnackMachineEntity>().Add(aggregateRoot);
+                        SaveCore(context);
+                        context.SaveChanges();
+                    }
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public override void Delete(SnackMachineEntity aggregateRoot)
+        {
+            using (var context = ContextFactory.CreateDbContext(new string[] { Environment.GetEnvironmentVariable("DATABASE_URL") }))
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    context.Set<SnackMachineEntity>().Remove(aggregateRoot);
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+            }
         }
 
         protected override SnackMachineEntity GetByIdCore(DbContext context, Guid id)
