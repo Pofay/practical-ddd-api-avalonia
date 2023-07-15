@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SharedKernel;
 using SnackMachine.Logic.Persistence;
 
 namespace SnackMachine.Logic
@@ -64,7 +65,7 @@ namespace SnackMachine.Logic
             }
         }
 
-        protected override SnackMachineEntity GetByIdCore(DbContext context, Guid id)
+        protected SnackMachineEntity GetByIdCore(DbContext context, Guid id)
         {
             return context
                 .Set<SnackMachineEntity>()
@@ -73,7 +74,7 @@ namespace SnackMachine.Logic
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        protected override void SaveCore(DbContext context)
+        protected void SaveCore(DbContext context)
         {
             // Answer from https://stackoverflow.com/questions/48630029/how-should-i-model-static-reference-data-with-entity-framework
             // This is a workaround to avoid EF Core to try to insert Snack entities 

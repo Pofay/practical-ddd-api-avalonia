@@ -1,4 +1,6 @@
-﻿namespace SnackMachine.Logic;
+﻿using SharedKernel;
+
+namespace SnackMachine.Logic;
 
 public class SnackMachineEntity : AggregateRoot
 {

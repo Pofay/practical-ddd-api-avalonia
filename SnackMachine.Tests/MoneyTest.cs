@@ -3,6 +3,7 @@
 using Xunit;
 using SnackMachine.Logic;
 using FluentAssertions;
+using SharedKernel;
 
 public class MoneyTest
 {

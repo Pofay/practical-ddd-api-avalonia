@@ -7,6 +7,7 @@ using Xunit;
 using SnackMachine.Logic;
 using SnackMachine.Logic.Persistence;
 using FluentAssertions;
+using SharedKernel;
 
 namespace SnackMachine.Tests
 {

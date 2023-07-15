@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using SharedKernel;
 using SnackMachine.Logic;
 
 namespace SnackMachine.UI.ViewModels

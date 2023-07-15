@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using SnackMachine.Logic;
 using FluentAssertions;
-
+using SharedKernel;
 
 namespace SnackMachine.Tests
 {
