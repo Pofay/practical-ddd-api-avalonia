@@ -19,7 +19,7 @@ namespace SnackMachine.Tests
             System.Environment.SetEnvironmentVariable("DATABASE_URL", "Server=localhost; Port=5432; User Id=postgres; Password=postgres; Database=practical_ddd_db; CommandTimeout=20;");
             var id = Guid.NewGuid();
             var sut = new SnackMachineEntity(id);
-            var repository = new SnackMachineRepository(new DataContextFactory());
+            var repository = new SnackMachineRepository(new DbContextFactory());
 
             repository.Save(sut);
 
@@ -36,7 +36,7 @@ namespace SnackMachine.Tests
             System.Environment.SetEnvironmentVariable("DATABASE_URL", "Server=localhost; Port=5432; User Id=postgres; Password=postgres; Database=practical_ddd_db; CommandTimeout=20;");
             var id = Guid.NewGuid();
             var sut = new SnackMachineEntity(id);
-            var repository = new SnackMachineRepository(new DataContextFactory());
+            var repository = new SnackMachineRepository(new DbContextFactory());
 
             repository.Save(sut);
 
@@ -57,7 +57,7 @@ namespace SnackMachine.Tests
             var id = Guid.Parse("6445db32-5a2f-407c-8a54-83b0828ffd34");
             var sut = new SnackMachineEntity(id);
             var chocolate = Snack.Chocolate;
-            var repository = new SnackMachineRepository(new DataContextFactory());
+            var repository = new SnackMachineRepository(new DbContextFactory());
 
             sut.LoadSnacks(1, new SnackPile(Snack.Chocolate, 1, 3m));
             sut.LoadSnacks(2, new SnackPile(Snack.Soda, 1, 3m));

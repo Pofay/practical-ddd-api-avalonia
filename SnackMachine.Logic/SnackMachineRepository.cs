@@ -10,20 +10,20 @@ namespace SnackMachine.Logic
 {
     public class SnackMachineRepository : Repository<SnackMachineEntity>
     {
-        public SnackMachineRepository(DataContextFactory dataContextFactory) : base(dataContextFactory)
+        public SnackMachineRepository(DbContextFactory dataContextFactory) : base(dataContextFactory)
         {
         }
 
-        protected override SnackMachineEntity GetByIdCore(DataContext context, Guid id)
+        protected override SnackMachineEntity GetByIdCore(DbContext context, Guid id)
         {
             return context
-                .SnackMachines
+                .Set<SnackMachineEntity>()
                 .Include(s => s.Slots)
                 .ThenInclude(s => s.SnackPile.Snack)
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        protected override void SaveCore(DataContext context)
+        protected override void SaveCore(DbContext context)
         {
             // Answer from https://stackoverflow.com/questions/48630029/how-should-i-model-static-reference-data-with-entity-framework
             // This is a workaround to avoid EF Core to try to insert Snack entities 

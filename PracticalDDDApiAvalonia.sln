@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.Logic", "Snack
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.Tests", "SnackMachine.Tests\SnackMachine.Tests.csproj", "{1470BC26-0C91-42D6-8B39-25CF8D53AAA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackMachine.UI", "SnackMachine.UI\SnackMachine.UI.csproj", "{7A147C0B-D888-4926-AF3B-A2B7E20336DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackMachine.UI", "SnackMachine.UI\SnackMachine.UI.csproj", "{7A147C0B-D888-4926-AF3B-A2B7E20336DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using SnackMachine.Logic.Persistence.Configuration;
+using SnackMachine.Logic.Persistence.Configuration.SnackMachineConfigurations;
 
 namespace SnackMachine.Logic.Persistence
 {
     public class DataContext : DbContext
     {
-        public DbSet<SnackMachineEntity> SnackMachines { get; set; }
-
         public DataContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,9 +21,9 @@ namespace SnackMachine.Logic.Persistence
         }
     }
 
-    public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
+    public class DbContextFactory : IDesignTimeDbContextFactory<DbContext>
     {
-        public DataContext CreateDbContext(string[] args)
+        public DbContext CreateDbContext(string[] args)
         {
             var connectionString = args[0];
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();

@@ -31,7 +31,7 @@ namespace SnackMachine.UI
                 ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
 
                 var snackMachineId = Guid.Parse("09213a9c-ff65-4b01-b7da-ac7a792b119e");
-                var repository = new SnackMachineRepository(new DataContextFactory());
+                var repository = new SnackMachineRepository(new DbContextFactory());
                 SnackMachineEntity snackMachine;
                 var existingSnackMachine = repository.GetById(snackMachineId);
                 if (existingSnackMachine == null)

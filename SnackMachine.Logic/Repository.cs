@@ -11,9 +11,9 @@ namespace SnackMachine.Logic
 {
     public abstract class Repository<T> where T : AggregateRoot
     {
-        private DataContextFactory ContextFactory { get; }
+        private DbContextFactory ContextFactory { get; }
 
-        public Repository(DataContextFactory dataContextFactory)
+        public Repository(DbContextFactory dataContextFactory)
         {
             this.ContextFactory = dataContextFactory;
         }
@@ -53,7 +53,7 @@ namespace SnackMachine.Logic
             }
         }
 
-        protected abstract void SaveCore(DataContext context);
+        protected abstract void SaveCore(DbContext context);
 
         public virtual void Delete(T aggregateRoot)
         {
@@ -67,6 +67,6 @@ namespace SnackMachine.Logic
                 }
             }
         }
-        protected abstract T GetByIdCore(DataContext context, Guid id);
+        protected abstract T GetByIdCore(DbContext context, Guid id);
     }
 }

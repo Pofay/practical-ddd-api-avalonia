@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SnackMachine.Logic.Persistence.Configuration
+namespace SnackMachine.Logic.Persistence.Configuration.SnackMachineConfigurations
 {
     public class SnackMachineEntityTypeConfiguration : IEntityTypeConfiguration<SnackMachineEntity>
     {
